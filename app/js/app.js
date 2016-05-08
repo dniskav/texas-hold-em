@@ -1,48 +1,70 @@
 //(function(){
-    var Maze = function(){
-        vm = this;
-        var kinds = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+    //var player1 = document.getElementById('player-1');
+    //var player2 = document.getElementById('player-2');
 
-        var deck = [];
+    var players = [];
 
-        deck.generate = function  () {
-            var that = this;
-            kinds.forEach(function(kind){
-                for(var i = 2; i <= 14; i++){
-                    that.push(new Card({kind: kind, value: i}))
-                }
-            });
-            return this;
-        };
+    function Dealer() {
+        var deck = new Maze();
+        var table = new Table('table');
+        var step = 0;
 
-        deck.shuffle = function () {
-            var tempDeckO = deck.slice();
-            this.length = 0;
-            while(tempDeckO.length){
-                deck.push(tempDeckO.splice(Math.floor(Math.random() * tempDeckO.length),1)[0])
+        function addPlayer(el) {
+            var pj = new Player(el);
+            players.push(pj);
+            return pj;
+        }
+
+        function deal() {
+            if(players.length < 2 || step > 3) {
+                newGame();
+                return;
             }
-            return this;
-        };
+            switch (step) {
+                case 1:
+                    table.setCard(deck.sendCard());
+                    table.setCard(deck.sendCard());
+                    table.setCard(deck.sendCard());
+                break;
+                case 2:
+                    table.setCard(deck.sendCard());
+                break;
+                case 3:
+                    table.setCard(deck.sendCard());
+                break;
+                default :
+                    players.forEach(function(pj){
+                        pj.setCard(deck.sendCard());
+                        pj.setCard(deck.sendCard());
+                    });
+                break;
+            }
+            step++;
+        }
 
-        return deck;
-    };
+        function newGame() {
+            deck.reset();
+            step = 0;
+            table.resetCards();
+            players.forEach(function(pj){
+                pj.resetCards();
+            })
+        }
 
-
-    function Card(params){
-        var vm = this;
-        var letters = {
-            11:'J',
-            12:'Q',
-            13: 'K',
-            14: 'A'
-        };
-        vm.kind = params.kind;
-        vm.value = params.value;
-        vm.display = (vm.value > 10) ? letters[vm.value] : vm.value;
-
-        vm.render = function(){
-            console.log(vm.display + ' of ' + vm.kind);
+        return {
+            deal : deal,
+            addPlayer : addPlayer,
+            newGame : newGame
         }
     }
+
+    var dealer = new Dealer();
+    dealer.addPlayer('player-1');
+    dealer.addPlayer('player-2');
+    dealButton = document.querySelector('#deal');
+    dealButton.addEventListener('click', function(e){
+        dealer.deal();
+    });
+
 
 //})();

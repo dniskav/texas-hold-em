@@ -1,0 +1,40 @@
+.player {
+    text-align: center;
+}
+
+.table {
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+.card {
+    width: 100px;
+    height: 150px;
+    display: inline-block;
+    vertical-align: top;
+    font-family: arial;
+    font-size: 5em;
+    text-align: center;}
+
+.hearts {
+    background: red;
+    color: white;
+}
+
+.diamonds {
+    background: blue;
+    color: white;
+}
+
+.spades {
+    background: black;
+    color: white;
+}
+
+.clubs {
+    background: green;
+    color: white;
+}
