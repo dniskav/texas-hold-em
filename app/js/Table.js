@@ -13,6 +13,10 @@ function Table (htmlEl){
         cards.push(card);
     }
 
+    function getCards() {
+        return cards;
+    }
+
     function resetCards () {
         htmlElement.innerText = '';
         cards.length = 0;
@@ -21,6 +25,7 @@ function Table (htmlEl){
     return {
         setCard : setCard,
         cards : cards,
+        getCards : getCards,
         resetCards : resetCards
     }
 

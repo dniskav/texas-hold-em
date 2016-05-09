@@ -25,7 +25,7 @@ function Player(el){
 
     return {
         setCard : setCard,
-        getCard : getCards,
+        getCards : getCards,
         resetCards : resetCards
     }
 }
