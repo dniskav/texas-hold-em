@@ -5,6 +5,7 @@ function Dealer() {
     var deck = new Maze();
     var table = new Table('table');
     var step = 0;
+    var players = [];
     var goals = [
         {pair : 1},
         {dpair : 2},
@@ -18,8 +19,9 @@ function Dealer() {
 
     ];
 
-    function evaluateHand(player){
+    function evaluateHand(pj){
         var maxScore;
+        var player = players[pj];
         var partialDeck = player.getCards().concat(table.getCards())
             .sort(function(a, b){
                 return a.value - b.value
@@ -28,13 +30,28 @@ function Dealer() {
             if(!arr[ndx + 1]) return false;
             return val.value === arr[ndx + 1].value
         });
+
+        var straight = []; 
+        partialDeck.forEach(function(v,i,a){
+            if(i + 1 < a.length && a[i + 1].value) {
+                if(v.value + 1 === a[i + 1].value) {
+                    if(straight.length === 0) straight.push(v);
+                    straight.push(a[i + 1]);
+                } else {
+                    if (straight.length < 5) straight.length = 0;
+                }
+            }
+        })
         if(duplicates.length) {
-            var kind = dupliates.forEach(function(v,i,a){
+            var kind = duplicates.forEach(function(v,i,a){
                 
             })
 
         }
-        return duplicates;
+        return {
+            duplicates : duplicates,
+            straight : straight
+        };
     }
 
     function addPlayer(el) {
