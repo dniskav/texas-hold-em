@@ -20,21 +20,52 @@ function Dealer() {
 
     function evaluateHand(player){
         var maxScore;
+        var result = {};
+        var secuence = [];
+        result.deck = {};
+
+        result.color = {};
+
         var partialDeck = player.getCards().concat(table.getCards())
             .sort(function(a, b){
                 return a.value - b.value
             });
-        var duplicates = partialDeck.filter(function(val, ndx, arr){
-            if(!arr[ndx + 1]) return false;
-            return val.value === arr[ndx + 1].value
+        partialDeck.forEach(function(val, ndx, arr) {
+            if(ndx + 1 < arr.length) {
+                if(val.value + 1 === arr[ndx + 1].value) {
+                    secuence.push(val);
+                    if(secuence.)
+                } else {
+                    if(secuence.length < 5) {
+                        secuence.length = 0;
+                    }
+                }
+            }
         });
-        if(duplicates.length) {
-            var kind = dupliates.forEach(function(v,i,a){
-                
-            })
+        var duplicates = partialDeck.filter(function(val, ndx, arr){
+            var pairRight = false;
+            var pairLeft = false;
+            if(ndx + 1 < arr.length) {
+                pairRight = val.value === arr[ndx + 1].value;
+            }
+            if(ndx > 0) {
+                pairLeft = val.value === arr[ndx - 1].value;
+            }
 
-        }
-        return duplicates;
+
+            return  pairRight || pairLeft;
+        });
+
+        partialDeck.forEach(function(val, ndx, arr){
+            result.deck['c_' + val.value] = result.deck['c_' + val.value] || [];
+            result.deck['c_' + val.value].push(val);
+            result.color[val.kind] = result.color[val.kind] || [];
+            result.color[val.kind].push(val)
+        });
+
+        result.straight = secuence;
+        result.duplicates = duplicates;
+        return result;
     }
 
     function addPlayer(el) {

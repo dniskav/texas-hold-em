@@ -32,7 +32,7 @@ var Maze = function(){
 
     deck.reset = function() {
         deck.length = 0;
-        deck.generate().shuffle();
+        deck.generate();
     };
 
     deck.reset();
