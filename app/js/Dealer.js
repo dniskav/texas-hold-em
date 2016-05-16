@@ -25,28 +25,34 @@ function Dealer() {
             .sort(function(a, b){
                 return a.value - b.value
             });
-        var duplicates = partialDeck.filter(function(val, ndx, arr){
-            if(!arr[ndx + 1]) return false;
-            return val.value === arr[ndx + 1].value
-        });
+        var straight = [];
 
-        var straight = []; 
         partialDeck.forEach(function(v,i,a){
             if(i + 1 < a.length && a[i + 1].value) {
                 if(v.value + 1 === a[i + 1].value) {
                     if(straight.length === 0) straight.push(v);
                     straight.push(a[i + 1]);
                 } else {
-                    if (straight.length < 5) straight.length = 0;
+                    if(!(v.value + 1 === a[i + 1].value)) {
+                        if (straight.length < 5) straight.length = 0;
+                    }
                 }
             }
         });
-        if(duplicates.length) {
-            var kind = duplicates.forEach(function(v,i,a){
-                
-            })
 
-        }
+        var duplicates = partialDeck.filter(function(val, ndx, arr){
+            var pairRight = false;
+            var pairLeft = false;
+            if(ndx + 1 < arr.length) {
+                pairRight = val.value === arr[ndx + 1].value;
+            }
+            if(ndx > 0) {
+                pairLeft = val.value === arr[ndx - 1].value;
+            }
+
+
+            return  pairRight || pairLeft;
+        });
         return {
             duplicates : duplicates,
             straight : straight
