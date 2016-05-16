@@ -40,7 +40,7 @@ function Dealer() {
                     if (straight.length < 5) straight.length = 0;
                 }
             }
-        })
+        });
         if(duplicates.length) {
             var kind = duplicates.forEach(function(v,i,a){
                 
