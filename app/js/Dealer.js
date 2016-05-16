@@ -20,7 +20,6 @@ function Dealer() {
     ];
 
     function evaluateHand(pj){
-        var maxScore;
         var player = players[pj];
         var partialDeck = player.getCards().concat(table.getCards())
             .sort(function(a, b){
